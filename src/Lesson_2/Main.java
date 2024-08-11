@@ -8,13 +8,13 @@ public class Main {
         Tasks.compareNumbers(3,4);
         Tasks.checkUserSumInRange();
         Tasks.printSignOfNumber(-6);
-        Tasks.printIsNegative(0);
+        Tasks.demoIsNegative(-5);
         Tasks.printStringMultipleTimes("Привет", 2);
-        Tasks.checkLeapYear(2000);
+        Tasks.demoCheckLeapYear(2000);
         Tasks.invertArrayAndPrint(new int[]{1, 1, 1, 1, 0, 0, 0, 0});
         Tasks.fillArray();
         Tasks.multiplyIfLessThanSix();
         Tasks.fillDiagonal();
-        Tasks.createArray(10, 5);
+        Tasks.createArray(10, 7);
     }
 }

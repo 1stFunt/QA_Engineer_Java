@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Tasks {
     /*
-    1. Создайте метод printThreeWords(), который при вызове должен
+    1. Создайте метод printThreeWords(), который при вызове должен
     отпечатать в столбец три слова: Orange, Banana, Apple.
     */
     public static void printThreeWords() {
@@ -15,50 +15,35 @@ public class Tasks {
     }
 
     /*
-    2. Создайте метод checkSumSign(), в теле которого объявите две int переменные a и b, и инициализируйте их любыми
+    2. Создайте метод checkSumSign(), в теле которого объявите две int переменные a и b, и инициализируйте их любыми
     значениями, которыми захотите. Далее метод должен просуммировать эти переменные, и если их сумма больше
     или равна 0, то вывести в консоль сообщение “Сумма положительная”, в противном случае - “Сумма отрицательная”;
     */
     public static void checkSumSign(int a, int b) {
         int sum = a + b;
-
-        if (sum >= 0) {
-            System.out.println("2). Сумма положительная");
-        } else {
-            System.out.println("2). Сумма отрицательная");
-        }
+        System.out.println("2). " + (sum >= 0 ? "Сумма положительная" : "Сумма отрицательная"));
     }
 
     /*
-    3. Создайте метод printColor() в теле которого задайте int переменную value и инициализируйте ее любым значением.
-    Если value меньше 0 (0 включительно), то в консоль метод должен вывести сообщение “Красный”, если лежит в пределах
-    от 0 (0 исключительно) до 100 (100 включительно), то “Желтый”, если больше 100 (100 исключительно) - “Зеленый”;
+    3. Создайте метод printColor() в теле которого задайте int переменную value и инициализируйте ее любым значением.
+    Если value меньше 0 (0 включительно), то в консоль метод должен вывести сообщение “Красный”, если лежит в пределах
+    от 0 (0 исключительно) до 100 (100 включительно), то “Желтый”, если больше 100 (100 исключительно) - “Зеленый”;
     */
     public static void printColor(int value) {
-        if (value < 0) {
-            System.out.println("3). Красный");
-        } else if (value <= 100) {
-            System.out.println("3). Желтый");
-        } else {
-            System.out.println("3). Зеленый");
-        }
+        System.out.println("3). " + (value < 0 ? "Красный" : (value <= 100 ? "Желтый" : "Зеленый")));
     }
 
     /*
-    4. Создайте метод compareNumbers(), в теле которого объявите две int переменные a и b, и инициализируйте их
+    4. Создайте метод compareNumbers(), в теле которого объявите две int переменные a и b, и инициализируйте их
     любыми значениями, которыми захотите. Если a больше или равно b, то необходимо вывести в консоль сообщение
     “a >= b”, в противном случае “a < b”;
     */
     public static void compareNumbers(int a, int b) {
-        if (a >= b) {
-            System.out.println("4). a >= b");
-        } else {
-            System.out.println("4). a < b");
-        }
+        System.out.println("4). " + (a >= b ? "a >= b" : "a < b"));
     }
 
     /*
-    5. Напишите метод, принимающий на вход два целых числа и проверяющий, что их сумма лежит в пределах от 10 до 20
+    5. Напишите метод, принимающий на вход два целых числа и проверяющий, что их сумма лежит в пределах от 10 до 20
     (включительно), если да – вернуть true, в противном случае – false.
      */
     public static boolean isSumInRange(int a, int b) {
@@ -86,19 +71,19 @@ public class Tasks {
     положительное ли число передали или отрицательное. Замечание: ноль считаем положительным числом.
      */
     public static void printSignOfNumber(int number) {
-        if (number >= 0) {
-            System.out.println("6). Число положительное");
-        } else {
-            System.out.println("6). Число отрицательное");
-        }
+        System.out.println("6). " + (number >= 0 ? "Число положительное" : "Число отрицательное"));
     }
 
     /*
     7. Напишите метод, которому в качестве параметра передается целое число. Метод должен вернуть true,
     если число отрицательное, и вернуть false если положительное. Замечание: ноль считаем положительным числом.
-     */
-    public static void printIsNegative(int number) {
-        boolean result = number < 0;
+    */
+    public static boolean isNegative(int number) {
+        return number < 0;
+    }
+
+    public static void demoIsNegative(int number) {
+        boolean result = isNegative(number);
         System.out.println("7). Результат: " + result);
     }
 
@@ -113,14 +98,25 @@ public class Tasks {
     }
 
     /*
-    9. Напишите метод, который определяет, является ли год високосным,
-    и возвращает boolean (високосный - true, не високосный - false).
-    Каждый 4-й год является високосным, кроме каждого 100-го, при этом
-    каждый 400-й – високосный.
-     */
-    public static void checkLeapYear(int year) {
-        boolean isLeapYear = (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
-        System.out.println("9). Год " + year + " високосный: " + isLeapYear);
+    9. Напишите метод, который определяет, является ли год високосным и возвращает boolean (високосный - true, не
+    високосный - false). Каждый 4-й год является високосным, кроме каждого 100-го, при этом каждый 400-й – високосный.
+    */
+    public static boolean isLeapYear(int year) {
+        return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+    }
+
+    public static void demoCheckLeapYear(int year) {
+        boolean result = isLeapYear(year);
+        System.out.println("9). Год " + year + " високосный: " + result);
+    }
+
+    // Метод для печати массива
+    private static void printArray(int[] array, String label) {
+        System.out.print(label + ": ");
+        for (int i : array) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
     /*
@@ -128,24 +124,13 @@ public class Tasks {
     После замены вывести исходный и измененный массив на экран.
      */
     public static void invertArrayAndPrint(int[] array) {
-        System.out.print("10). Исходный массив: ");
-        for (int i : array) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        printArray(array, "10). Исходный массив");
 
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == 0) {
-                array[i] = 1;
-            } else if (array[i] == 1) {
-                array[i] = 0;
-            }
+            array[i] = array[i] == 0 ? 1 : 0;
         }
-        System.out.print("Массив после замены: ");
-        for (int i : array) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+
+        printArray(array, "Массив после замены");
     }
 
     /*
@@ -157,11 +142,7 @@ public class Tasks {
         for (int i = 0; i < array.length; i++) {
             array[i] = i + 1;
         }
-        System.out.print("11). ");
-        for (int i : array) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        printArray(array, "11). Массив");
     }
 
     /*
@@ -175,11 +156,7 @@ public class Tasks {
                 array[i] *= 2;
             }
         }
-        System.out.print("12). ");
-        for (int i : array) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        printArray(array, "12). Массив после умножения");
     }
 
     /*
@@ -204,16 +181,12 @@ public class Tasks {
     }
 
     /*
-    14. Написать метод, принимающий на вход два аргумента: len и initialValue, и возвращающий одномерный массив
-    типа int длиной len, каждая ячейка которого равна initialValue.
+    14. Написать метод, принимающий на вход два аргумента: len и initialValue, и возвращающий одномерный массив
+    типа int длиной len, каждая ячейка которого равна initialValue.
      */
     public static void createArray(int len, int initialValue) {
         int[] array = new int[len];
         Arrays.fill(array, initialValue);
-        System.out.print("14). ");
-        for (int value : array) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
+        printArray(array, "14). Массив");
     }
 }
