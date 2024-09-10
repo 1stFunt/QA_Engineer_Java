@@ -1,3 +1,5 @@
+package Lesson_12_junit_5;
+
 public class FactorialCalculator {
 
     // Метод для вычисления факториала числа
