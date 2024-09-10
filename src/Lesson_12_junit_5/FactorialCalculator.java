@@ -1,8 +1,7 @@
 package Lesson_12_junit_5;
 
+// Напишите программу, позволяющую вычислить факториал числа. Напишите юнит-тесты для этой программы, используя Junit 5.
 public class FactorialCalculator {
-
-    // Метод для вычисления факториала числа
     public long calculateFactorial(int number) {
         if (number < 0) {
             throw new IllegalArgumentException("Число должно быть неотрицательным");
