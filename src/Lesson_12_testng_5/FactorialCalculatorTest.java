@@ -11,6 +11,11 @@ public class FactorialCalculatorTest {
     }
 
     @Test
+    public void testFactorialOfOne() {
+        Assert.assertEquals(FactorialCalculator.factorial(0), 1);
+    }
+
+    @Test
     public void testFactorialOfPositiveNumber() {
         Assert.assertEquals(FactorialCalculator.factorial(5), 120);
     }
