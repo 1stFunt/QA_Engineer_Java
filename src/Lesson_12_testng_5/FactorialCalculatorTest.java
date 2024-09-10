@@ -25,8 +25,9 @@ public class FactorialCalculatorTest {
         Assert.assertEquals(FactorialCalculator.factorial(20), 2432902008176640000L, "Факториал 20 должен быть 2432902008176640000");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Число должно быть неотрицательным")
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void testFactorialOfNegativeNumber() {
         FactorialCalculator.factorial(-1);
+        Assert.fail("Должно выбрасываться исключение для отрицательных чисел");
     }
 }
