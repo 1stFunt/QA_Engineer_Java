@@ -1,4 +1,5 @@
 ### IntelliJ IDEA ###
+target/
 out/
 .idea/
 target/
