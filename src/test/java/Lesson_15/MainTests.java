@@ -3,13 +3,15 @@ package Lesson_15;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTests {
     private WebDriver driver;
@@ -20,12 +22,13 @@ public class MainTests {
     public void setupTest() {
         // Создаём экземпляр драйвера
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         // Растягиваем окно браузера
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
         // Объект созданного Page Object для взаимодействия со страницей
         mainPage = new MainPage(driver, wait);
+        mainPage.clickRejectCookies();
     }
 
     // 1. Проверить название указанного блока
@@ -33,6 +36,35 @@ public class MainTests {
     public void testBlockName() {
         assertEquals("Онлайн пополнение без комиссии", mainPage.getBlockNameText(),
                 "Текст не соответствует ожидаемому значению.");
+    }
+
+    // 2. Проверить наличие логотипов платёжных систем
+    @ParameterizedTest
+    @ValueSource(strings = {"visa", "verified by visa", "mastercard", "mastercard secure", "белкарт"})
+    public void testPaymentLogosAreDisplayed(String logo) {
+        assertNotNull(mainPage.getPaymentLogoById(logo), "Логотип " + logo + " не найден на странице.");
+        assertTrue(mainPage.getPaymentLogoById(logo).isDisplayed(), "Логотип " + logo + " не отображается на странице.");
+    }
+
+    // 3. Проверить работу ссылки "Подробнее о сервисе"
+    @Test
+    public void testClickAboutServiceLink() {
+        mainPage.clickAboutServiceLink();
+        // Проверка, что после клика мы попали на нужную страницу
+        String currentUrl = driver.getCurrentUrl();
+        assertEquals("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/",
+                currentUrl, "URL не соответствует ожидаемому.");
+    }
+
+    @Test
+    public void testInputFieldsAndSubmit() throws InterruptedException {
+        mainPage.enterPhoneNumber("297777777");
+        mainPage.enterSum("100");
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        Thread.sleep(2000); // Ожидание 2 секунды
+        // Ожидание и проверка, что карточка страницы отображается
+        assertTrue(mainPage.getCardPage().isDisplayed(), "Страница карты не отображается.");
     }
 
     // Закрываем браузер и драйвер
