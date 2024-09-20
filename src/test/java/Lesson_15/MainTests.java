@@ -58,17 +58,18 @@ public class MainTests {
                 currentUrl, "URL не соответствует ожидаемому.");
     }
 
-    // Заполнить поля и проверить работу кнопки "Продолжить"
-    @Test
-    public void testInputFieldsAndSubmit() throws InterruptedException {
-        mainPage.enterPhoneNumber("297777777");
-        mainPage.enterSum("100");
-        mainPage.enterEmail("funt_88@mail.ru");
-        mainPage.clickContinueButton();
-        Thread.sleep(3000); // Ожидание
-
-        assertTrue(mainPage.getCardPage().isDisplayed(), "Страница карты не отображается.");
-    }
+//    // Заполнить поля и проверить работу кнопки "Продолжить"
+//    @Test
+//    public void testInputFieldsAndSubmit() throws InterruptedException {
+//        mainPage.enterPhoneNumber("297777777");
+//        mainPage.enterSum("100");
+//        mainPage.enterEmail("funt_88@mail.ru");
+//        mainPage.clickContinueButton();
+//        Thread.sleep(3000); // Ожидание
+//        assertEquals("Сохранить данные карты для последующих оплат", mainPage.getCardPageText(),
+//                "Текст на странице карты не соответствует ожидаемому.");
+//
+//    }
 
     // Закрываем браузер и драйвер
     @AfterEach

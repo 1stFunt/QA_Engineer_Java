@@ -42,7 +42,7 @@ public class MainPage {
     private WebElement connectionEmailInput;
     @FindBy(xpath = "//form[1]//button[contains(text(), 'Продолжить')]")
     private WebElement continueButton;
-    @FindBy(xpath = "/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/div/span[2]")
+    @FindBy(xpath = "/html/body/app-root/div/div/div/app-payment-container/section/div/app-card-page/div/div[1]/app-card-input/form/div[2]/app-switcher-form-control/div/app-switcher/div/label")
     private WebElement cardPage;
 
     // Конструктор для инициализации элементов (ленивая инициализация)
@@ -123,7 +123,7 @@ public class MainPage {
     }
 
     // Окно оплаты
-    public WebElement getCardPage() {
-        return wait.until(ExpectedConditions.visibilityOf(cardPage));
+    public String getCardPageText() {
+        return wait.until(ExpectedConditions.visibilityOf(cardPage)).getText().replace("\n", " ");
     }
 }
