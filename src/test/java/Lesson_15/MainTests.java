@@ -66,13 +66,7 @@ public class MainTests {
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
         Thread.sleep(3000); // Ожидание
-        // Сохраняем все window handles в список
-        List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
-        // Переключаемся на последнее открытое окно, если их больше одного
-        if (windowHandles.size() > 1) {
-            driver.switchTo().window(windowHandles.get(windowHandles.size() - 1));
-        }
-        // Ожидание и проверка, что карточка страницы отображается
+
         assertTrue(mainPage.getCardPage().isDisplayed(), "Страница карты не отображается.");
     }
 
