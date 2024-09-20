@@ -62,7 +62,7 @@ public class MainTests {
         mainPage.enterSum("100");
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        Thread.sleep(2000); // Ожидание 2 секунды
+        Thread.sleep(5000); // Ожидание
         // Ожидание и проверка, что карточка страницы отображается
         assertTrue(mainPage.getCardPage().isDisplayed(), "Страница карты не отображается.");
     }
