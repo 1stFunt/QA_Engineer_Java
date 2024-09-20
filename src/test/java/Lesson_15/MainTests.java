@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,13 +58,20 @@ public class MainTests {
                 currentUrl, "URL не соответствует ожидаемому.");
     }
 
+    // Заполнить поля и проверить работу кнопки "Продолжить"
     @Test
     public void testInputFieldsAndSubmit() throws InterruptedException {
         mainPage.enterPhoneNumber("297777777");
         mainPage.enterSum("100");
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        Thread.sleep(10000); // Ожидание
+        Thread.sleep(3000); // Ожидание
+        // Сохраняем все window handles в список
+        List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
+        // Переключаемся на последнее открытое окно, если их больше одного
+        if (windowHandles.size() > 1) {
+            driver.switchTo().window(windowHandles.get(windowHandles.size() - 1));
+        }
         // Ожидание и проверка, что карточка страницы отображается
         assertTrue(mainPage.getCardPage().isDisplayed(), "Страница карты не отображается.");
     }
