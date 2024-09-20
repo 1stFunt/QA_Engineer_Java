@@ -10,8 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +22,7 @@ public class MainTests {
     public void setupTest() {
         // Создаём экземпляр драйвера
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         // Растягиваем окно браузера
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
@@ -58,18 +56,18 @@ public class MainTests {
                 currentUrl, "URL не соответствует ожидаемому.");
     }
 
-//    // Заполнить поля и проверить работу кнопки "Продолжить"
-//    @Test
-//    public void testInputFieldsAndSubmit() throws InterruptedException {
-//        mainPage.enterPhoneNumber("297777777");
-//        mainPage.enterSum("100");
-//        mainPage.enterEmail("funt_88@mail.ru");
-//        mainPage.clickContinueButton();
-//        Thread.sleep(3000); // Ожидание
-//        assertEquals("Сохранить данные карты для последующих оплат", mainPage.getCardPageText(),
-//                "Текст на странице карты не соответствует ожидаемому.");
-//
-//    }
+    // Заполнить поля и проверить работу кнопки "Продолжить"
+    @Test
+    public void testInputFieldsAndSubmit() throws InterruptedException {
+        mainPage.enterPhoneNumber("297777777");
+        mainPage.enterSum("100");
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        Thread.sleep(3000); // Ожидание
+        assertEquals("100.00 BYN", mainPage.getCardPageText(),
+                "Текст на странице карты не соответствует ожидаемому.");
+
+    }
 
     // Закрываем браузер и драйвер
     @AfterEach
