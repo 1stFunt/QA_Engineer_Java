@@ -70,8 +70,6 @@ public class MainTests {
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe.bepaid-iframe")));
         assertTrue(mainPage.getCardPageText().contains(expectedSum + " BYN"),
                 "Текст на странице карты не содержит сумму и валюту.");
-        ;
-
     }
 
     // Закрываем браузер и драйвер
