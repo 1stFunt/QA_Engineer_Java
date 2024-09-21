@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -64,6 +65,8 @@ public class MainTests {
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
         Thread.sleep(3000); // Ожидание
+        // Ожидание загрузки и переключение на фрейм
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe.bepaid-iframe")));
         assertEquals("100.00 BYN", mainPage.getCardPageText(),
                 "Текст на странице карты не соответствует ожидаемому.");
 

@@ -42,7 +42,7 @@ public class MainPage {
     private WebElement connectionEmailInput;
     @FindBy(xpath = "//form[1]//button[contains(text(), 'Продолжить')]")
     private WebElement continueButton;
-    @FindBy(xpath = "//span[text()='100.00 BYN']")
+    @FindBy(xpath = "//span[contains(text(), '100.00')]")
     private WebElement cardPage;
 
     // Конструктор для инициализации элементов (ленивая инициализация)
