@@ -72,6 +72,14 @@ public class MainTests {
                 "Текст на странице карты не содержит сумму и валюту.");
     }
 
+    @Test
+    public void testClickSelectHeader() {
+        mainPage.clickSelectHeader(); // Кликаем по кнопке
+        // Проверяем, что элемент с текстом "Рассрочка" отображается
+        assertTrue(driver.findElement(By.xpath("//li[@class='select__item active']//p[text()='Рассрочка']")).isDisplayed(),
+                "Элемент 'Рассрочка' не отображается после клика.");
+    }
+
     // Закрываем браузер и драйвер
     @AfterEach
     public void teardown() {

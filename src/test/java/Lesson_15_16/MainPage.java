@@ -45,6 +45,9 @@ public class MainPage {
     @FindBy(xpath = "//span[contains(text(), '100.00')]")
     private WebElement cardPage;
 
+    @FindBy(xpath = "//button[@class='select__header']")
+    private WebElement selectHeader;
+
     // Конструктор для инициализации элементов (ленивая инициализация)
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
@@ -125,5 +128,9 @@ public class MainPage {
     // Окно оплаты
     public String getCardPageText() {
         return wait.until(ExpectedConditions.visibilityOf(cardPage)).getText().replace("\n", " ");
+    }
+
+    public void clickSelectHeader() {
+        wait.until(ExpectedConditions.elementToBeClickable(selectHeader)).click();
     }
 }
