@@ -1,4 +1,4 @@
-package Lesson_15;
+package Lesson_15_16;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
