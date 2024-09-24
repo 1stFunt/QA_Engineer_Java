@@ -31,7 +31,7 @@ public class MainPage {
     @FindBy(xpath = "//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")
     private WebElement aboutService;
 
-    // Поля и кнопка "Продолжить" + окно оплаты
+    // Поля и кнопка "Продолжить"
     @FindBy(xpath = "//input[@id='connection-phone']")
     private WebElement connectionPhoneInput;
     @FindBy(xpath = "//input[@id='connection-sum']")
@@ -40,8 +40,6 @@ public class MainPage {
     private WebElement connectionEmailInput;
     @FindBy(xpath = "//form[1]//button[contains(text(), 'Продолжить')]")
     private WebElement continueButton;
-    @FindBy(xpath = "//span[contains(text(), 'BYN')]")
-    private WebElement cardPage;
 
     // Конструктор для инициализации элементов (ленивая инициализация)
     public MainPage(WebDriver driver, WebDriverWait wait) {
@@ -118,10 +116,5 @@ public class MainPage {
     public void clickContinueButton() {
         wait.until(ExpectedConditions.elementToBeClickable(continueButton));
         continueButton.click();
-    }
-
-    // Сумма окна оплаты
-    public String getCardPageText() {
-        return wait.until(ExpectedConditions.visibilityOf(cardPage)).getText().replace("\n", " ");
     }
 }

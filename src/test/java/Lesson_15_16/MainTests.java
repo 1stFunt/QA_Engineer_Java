@@ -71,8 +71,8 @@ public class MainTests {
         mainPage.clickContinueButton();
         Thread.sleep(3000); // Ожидание
         // Ожидание загрузки и переключение на фрейм
-        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe.bepaid-iframe")));
-        assertTrue(mainPage.getCardPageText().contains(expectedSum + " BYN"),
+        paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
+        assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"),
                 "Текст на странице карты не содержит сумму и валюту.");
     }
 
