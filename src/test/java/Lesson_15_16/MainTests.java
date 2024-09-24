@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -82,9 +81,12 @@ public class MainTests {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnServicesOption(); // Кликаем по "Услуги связи"
         assertAll("Проверки текста полей для услуг связи",
-                () -> assertEquals("Номер телефона", dropDownList.getPhonePlaceholderText(), "Текст плейсхолдера для номера телефона неверный."),
-                () -> assertEquals("Сумма", dropDownList.getSumPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
-                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+                () -> assertEquals("Номер телефона", dropDownList.getPhonePlaceholderText(),
+                        "Текст плейсхолдера для номера телефона неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumPlaceholderText(),
+                        "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailPlaceholderText(),
+                        "Текст плейсхолдера для электронной почты неверный.")
         );
     }
 
@@ -94,9 +96,12 @@ public class MainTests {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnHomeInternetOption(); // Кликаем по "Домашний интернет"
         assertAll("Проверки текста полей для домашнего интернета",
-                () -> assertEquals("Номер абонента", dropDownList.getPhoneInternetPlaceholderText(), "Текст плейсхолдера для телефона неверный."),
-                () -> assertEquals("Сумма", dropDownList.getSumInternetPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
-                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInternetPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+                () -> assertEquals("Номер абонента", dropDownList.getPhoneInternetPlaceholderText(),
+                        "Текст плейсхолдера для телефона неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumInternetPlaceholderText(),
+                        "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInternetPlaceholderText(),
+                        "Текст плейсхолдера для электронной почты неверный.")
         );
     }
 
@@ -106,9 +111,12 @@ public class MainTests {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnInstallmentOption(); // Кликаем по "Рассрочка"
         assertAll("Проверки текста полей для рассрочки",
-                () -> assertEquals("Номер счета на 44", dropDownList.getScoreInstalmentPlaceholderText(), "Текст плейсхолдера для счета неверный."),
-                () -> assertEquals("Сумма", dropDownList.getSumInstalmentPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
-                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInstalmentPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+                () -> assertEquals("Номер счета на 44", dropDownList.getScoreInstalmentPlaceholderText(),
+                        "Текст плейсхолдера для счета неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumInstalmentPlaceholderText(),
+                        "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInstalmentPlaceholderText(),
+                        "Текст плейсхолдера для электронной почты неверный.")
         );
     }
 
@@ -118,9 +126,12 @@ public class MainTests {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnArrearsOption(); // Кликаем по "Задолженность"
         assertAll("Проверки текста полей для задолженности",
-                () -> assertEquals("Номер счета на 2073", dropDownList.getScoreArrearsPlaceholderText(), "Текст плейсхолдера для счета неверный."),
-                () -> assertEquals("Сумма", dropDownList.getSumArrearsPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
-                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailArrearsPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+                () -> assertEquals("Номер счета на 2073", dropDownList.getScoreArrearsPlaceholderText(),
+                        "Текст плейсхолдера для счета неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumArrearsPlaceholderText(),
+                        "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailArrearsPlaceholderText(),
+                        "Текст плейсхолдера для электронной почты неверный.")
         );
     }
 
@@ -136,8 +147,10 @@ public class MainTests {
         Thread.sleep(3000); // Ожидание
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         assertAll("Проверки суммы и текста кнопки",
-                () -> assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"), "Текст на странице карты не содержит сумму и валюту."),
-                () -> assertEquals(paymentWindow.getPayButtonText(), "Оплатить " + expectedSum.trim() + " BYN", "Текст кнопки не соответствует ожидаемому значению.")
+                () -> assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"),
+                        "Текст на странице карты не содержит сумму и валюту."),
+                () -> assertEquals(paymentWindow.getPayButtonText(), "Оплатить " + expectedSum.trim() + " BYN",
+                        "Текст кнопки не соответствует ожидаемому значению.")
         );
     }
 
@@ -153,8 +166,10 @@ public class MainTests {
         // Ожидание загрузки
         Thread.sleep(3000); // Ожидание
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
-        assertNotNull(paymentWindow.getPaymentLogoBySystem(logo = logo), "Логотип " + logo + " не найден на странице.");
-        assertTrue(paymentWindow.getPaymentLogoBySystem(logo).isDisplayed(), "Логотип " + logo + " не отображается на странице.");
+        assertNotNull(paymentWindow.getPaymentLogoBySystem(logo),
+                "Логотип " + logo + " не найден на странице.");
+        assertTrue(paymentWindow.getPaymentLogoBySystem(logo).isDisplayed(),
+                "Логотип " + logo + " не отображается на странице.");
     }
 
     // Проверяем верное отображение номера телефона
@@ -182,10 +197,13 @@ public class MainTests {
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         // Проверка соответствия текстов полей
         assertAll("Проверки соответствия текстов полей",
-                () -> assertEquals("Номер карты", paymentWindow.getCreditCardLabelText(), "Текст метки для номера карты неверный."),
-                () -> assertEquals("Срок действия", paymentWindow.getExpirationDateLabelText(), "Текст метки для срока действия неверный."),
+                () -> assertEquals("Номер карты", paymentWindow.getCreditCardLabelText(),
+                        "Текст метки для номера карты неверный."),
+                () -> assertEquals("Срок действия", paymentWindow.getExpirationDateLabelText(),
+                        "Текст метки для срока действия неверный."),
                 () -> assertEquals("CVC", paymentWindow.getCvcLabelText(), "Текст метки для CVC неверный."),
-                () -> assertEquals("Имя держателя (как на карте)", paymentWindow.getCardHolderLabelText(), "Текст метки для имени держателя неверный.")
+                () -> assertEquals("Имя держателя (как на карте)", paymentWindow.getCardHolderLabelText(),
+                        "Текст метки для имени держателя неверный.")
         );
     }
 

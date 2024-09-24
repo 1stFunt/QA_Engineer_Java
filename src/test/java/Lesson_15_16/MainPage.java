@@ -9,13 +9,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-// Класс MainPage создан для соблюдения структурного подхода и наглядности использования паттерна Page Object.
 public class MainPage {
     private final WebDriverWait wait;
 
     // Ищем название блока
     @FindBy(xpath = "//div[@id='pay-section']//h2")
     private WebElement blockName;
+
     // Логотипы
     @FindBy(xpath = "//img[@alt=\"Visa\"]\n")
     private WebElement visaLogo;
@@ -27,6 +27,7 @@ public class MainPage {
     private WebElement masterCardSecureLogo;
     @FindBy(xpath = "//img[@alt='Белкарт']")
     private WebElement belcardLogo;
+
     // Ссылка "Подробнее о сервисе"
     @FindBy(xpath = "//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")
     private WebElement aboutService;
@@ -86,7 +87,7 @@ public class MainPage {
         }
     }
 
-    // Кликаем на cсылку "Подробнее о сервисе"
+    // Кликаем на ссылку "Подробнее о сервисе"
     public void clickAboutServiceLink() {
         wait.until(ExpectedConditions.elementToBeClickable(aboutService)).click();
     }
