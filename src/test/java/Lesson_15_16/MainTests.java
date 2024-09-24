@@ -77,7 +77,6 @@ public class MainTests {
     }
 
     // 2.1 Проверка надписей полей раздела "Услуги связи"
-    // Проверка надписей полей раздела "Услуги связи"
     @Test
     public void testServicesFieldsText() {
         dropDownList.clickSelectHeader();
