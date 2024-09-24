@@ -18,6 +18,8 @@ public class MainTests {
     private WebDriver driver;
     private WebDriverWait wait;
     private MainPage mainPage;
+    private DropDownList dropDownList;
+    private PaymentWindow paymentWindow;
 
     @BeforeEach
     public void setupTest() {
@@ -29,17 +31,19 @@ public class MainTests {
         driver.get("https://www.mts.by/");
         // Объект созданного Page Object для взаимодействия со страницей
         mainPage = new MainPage(driver, wait);
+        dropDownList = new DropDownList(driver, wait);
+        paymentWindow = new PaymentWindow(driver, wait);
         mainPage.clickRejectCookies();
     }
 
-    // 1. Проверить название указанного блока
+    // 1.1 Проверить название указанного блока
     @Test
     public void testBlockName() {
         assertEquals("Онлайн пополнение без комиссии", mainPage.getBlockNameText(),
                 "Текст не соответствует ожидаемому значению.");
     }
 
-    // 2. Проверить наличие логотипов платёжных систем
+    // 1.2. Проверить наличие логотипов платёжных систем
     @ParameterizedTest
     @ValueSource(strings = {"visa", "verified by visa", "mastercard", "mastercard secure", "белкарт"})
     public void testPaymentLogosAreDisplayed(String logo) {
@@ -47,7 +51,7 @@ public class MainTests {
         assertTrue(mainPage.getPaymentLogoById(logo).isDisplayed(), "Логотип " + logo + " не отображается на странице.");
     }
 
-    // 3. Проверить работу ссылки "Подробнее о сервисе"
+    // 1.3. Проверить работу ссылки "Подробнее о сервисе"
     @Test
     public void testClickAboutServiceLink() {
         mainPage.clickAboutServiceLink();
@@ -57,7 +61,7 @@ public class MainTests {
                 currentUrl, "URL не соответствует ожидаемому.");
     }
 
-    // 4. Заполнить поля и проверить работу кнопки "Продолжить"
+    // 1.4. Заполнить поля и проверить работу кнопки "Продолжить"
     @Test
     public void testInputFieldsAndSubmit() throws InterruptedException {
         mainPage.enterPhoneNumber("297777777");
@@ -72,12 +76,44 @@ public class MainTests {
                 "Текст на странице карты не содержит сумму и валюту.");
     }
 
+    // 2.1 Проверка надписей полей раздела "Услуги связи"
     @Test
-    public void testClickSelectHeader() {
-        mainPage.clickSelectHeader(); // Кликаем по кнопке
-        // Проверяем, что элемент с текстом "Рассрочка" отображается
-        assertTrue(driver.findElement(By.xpath("//p[@class='select__option' and text()='Рассрочка']")).isDisplayed(),
-                "Элемент 'Рассрочка' не отображается после клика.");
+    public void testServicesFieldsText() {
+        dropDownList.clickSelectHeader();
+        dropDownList.clickOnServicesOption(); // Кликаем по "Услуги связи"
+        assertEquals("Номер телефона", dropDownList.getPhonePlaceholderText(), "Текст плейсхолдера для номера телефона неверный.");
+        assertEquals("Сумма", dropDownList.getSumPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
+        assertEquals("E-mail для отправки чека", dropDownList.getEmailPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+    }
+
+    // Проверка надписей полей раздела "Домашний интернет"
+    @Test
+    public void testInternetFieldsText() {
+        dropDownList.clickSelectHeader();
+        dropDownList.clickOnHomeInternetOption(); // Кликаем по "Домашний интернет"
+        assertEquals("Номер абонента", dropDownList.getPhoneInternetPlaceholderText(), "Текст плейсхолдера для телефона неверный.");
+        assertEquals("Сумма", dropDownList.getSumInternetPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
+        assertEquals("E-mail для отправки чека", dropDownList.getEmailInternetPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+    }
+
+    // Проверка надписей полей раздела "Рассрочка"
+    @Test
+    public void testInstalmentFieldsText() {
+        dropDownList.clickSelectHeader();
+        dropDownList.clickOnInstallmentOption(); // Кликаем по "Рассрочка"
+        assertEquals("Номер счета на 44", dropDownList.getScoreInstalmentPlaceholderText(), "Текст плейсхолдера для счета неверный.");
+        assertEquals("Сумма", dropDownList.getSumInstalmentPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
+        assertEquals("E-mail для отправки чека", dropDownList.getEmailInstalmentPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+    }
+
+    // Проверка надписей полей раздела "Задолженность"
+    @Test
+    public void testArrearsFieldsText() {
+        dropDownList.clickSelectHeader();
+        dropDownList. clickOnArrearsOption(); // Кликаем по "Задолженность"
+        assertEquals("Номер счета на 2073", dropDownList.getScoreArrearsPlaceholderText(), "Текст плейсхолдера для счета неверный.");
+        assertEquals("Сумма", dropDownList.getSumArrearsPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
+        assertEquals("E-mail для отправки чека", dropDownList.getEmailArrearsPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
     }
 
     // Закрываем браузер и драйвер

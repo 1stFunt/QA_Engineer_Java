@@ -5,7 +5,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,7 +15,6 @@ public class MainPage {
     // Ищем название блока
     @FindBy(xpath = "//div[@id='pay-section']//h2")
     private WebElement blockName;
-
     // Логотипы
     @FindBy(xpath = "//img[@alt=\"Visa\"]\n")
     private WebElement visaLogo;
@@ -42,16 +40,12 @@ public class MainPage {
     private WebElement connectionEmailInput;
     @FindBy(xpath = "//form[1]//button[contains(text(), 'Продолжить')]")
     private WebElement continueButton;
-    @FindBy(xpath = "//span[contains(text(), '100.00')]")
+    @FindBy(xpath = "//span[contains(text(), 'BYN')]")
     private WebElement cardPage;
-
-    @FindBy(xpath = "//button[@class='select__header']")
-    private WebElement selectHeader;
 
     // Конструктор для инициализации элементов (ленивая инициализация)
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
-        PageFactory.initElements(driver, this);
     }
 
     // Отклонение куки
@@ -125,12 +119,8 @@ public class MainPage {
         continueButton.click();
     }
 
-    // Окно оплаты
+    // Сумма окна оплаты
     public String getCardPageText() {
         return wait.until(ExpectedConditions.visibilityOf(cardPage)).getText().replace("\n", " ");
-    }
-
-    public void clickSelectHeader() {
-        wait.until(ExpectedConditions.elementToBeClickable(selectHeader)).click();
     }
 }
