@@ -77,13 +77,16 @@ public class MainTests {
     }
 
     // 2.1 Проверка надписей полей раздела "Услуги связи"
+    // Проверка надписей полей раздела "Услуги связи"
     @Test
     public void testServicesFieldsText() {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnServicesOption(); // Кликаем по "Услуги связи"
-        assertEquals("Номер телефона", dropDownList.getPhonePlaceholderText(), "Текст плейсхолдера для номера телефона неверный.");
-        assertEquals("Сумма", dropDownList.getSumPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
-        assertEquals("E-mail для отправки чека", dropDownList.getEmailPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+        assertAll("Проверки текста полей для услуг связи",
+                () -> assertEquals("Номер телефона", dropDownList.getPhonePlaceholderText(), "Текст плейсхолдера для номера телефона неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+        );
     }
 
     // Проверка надписей полей раздела "Домашний интернет"
@@ -91,9 +94,11 @@ public class MainTests {
     public void testInternetFieldsText() {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnHomeInternetOption(); // Кликаем по "Домашний интернет"
-        assertEquals("Номер абонента", dropDownList.getPhoneInternetPlaceholderText(), "Текст плейсхолдера для телефона неверный.");
-        assertEquals("Сумма", dropDownList.getSumInternetPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
-        assertEquals("E-mail для отправки чека", dropDownList.getEmailInternetPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+        assertAll("Проверки текста полей для домашнего интернета",
+                () -> assertEquals("Номер абонента", dropDownList.getPhoneInternetPlaceholderText(), "Текст плейсхолдера для телефона неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumInternetPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInternetPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+        );
     }
 
     // Проверка надписей полей раздела "Рассрочка"
@@ -101,19 +106,88 @@ public class MainTests {
     public void testInstalmentFieldsText() {
         dropDownList.clickSelectHeader();
         dropDownList.clickOnInstallmentOption(); // Кликаем по "Рассрочка"
-        assertEquals("Номер счета на 44", dropDownList.getScoreInstalmentPlaceholderText(), "Текст плейсхолдера для счета неверный.");
-        assertEquals("Сумма", dropDownList.getSumInstalmentPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
-        assertEquals("E-mail для отправки чека", dropDownList.getEmailInstalmentPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+        assertAll("Проверки текста полей для рассрочки",
+                () -> assertEquals("Номер счета на 44", dropDownList.getScoreInstalmentPlaceholderText(), "Текст плейсхолдера для счета неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumInstalmentPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailInstalmentPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+        );
     }
 
     // Проверка надписей полей раздела "Задолженность"
     @Test
     public void testArrearsFieldsText() {
         dropDownList.clickSelectHeader();
-        dropDownList. clickOnArrearsOption(); // Кликаем по "Задолженность"
-        assertEquals("Номер счета на 2073", dropDownList.getScoreArrearsPlaceholderText(), "Текст плейсхолдера для счета неверный.");
-        assertEquals("Сумма", dropDownList.getSumArrearsPlaceholderText(), "Текст плейсхолдера для суммы неверный.");
-        assertEquals("E-mail для отправки чека", dropDownList.getEmailArrearsPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.");
+        dropDownList.clickOnArrearsOption(); // Кликаем по "Задолженность"
+        assertAll("Проверки текста полей для задолженности",
+                () -> assertEquals("Номер счета на 2073", dropDownList.getScoreArrearsPlaceholderText(), "Текст плейсхолдера для счета неверный."),
+                () -> assertEquals("Сумма", dropDownList.getSumArrearsPlaceholderText(), "Текст плейсхолдера для суммы неверный."),
+                () -> assertEquals("E-mail для отправки чека", dropDownList.getEmailArrearsPlaceholderText(), "Текст плейсхолдера для электронной почты неверный.")
+        );
+    }
+
+    // 2.2 Проверяем отображение суммы в окне и на кнопке
+    @Test
+    public void testInputFieldSum() throws InterruptedException {
+        mainPage.enterPhoneNumber("297777777");
+        String expectedSum = "100.00";
+        mainPage.enterSum(expectedSum);
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        // Ожидание загрузки
+        Thread.sleep(3000); // Ожидание
+        paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
+        assertAll("Проверки суммы и текста кнопки",
+                () -> assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"), "Текст на странице карты не содержит сумму и валюту."),
+                () -> assertEquals(paymentWindow.getPayButtonText(), "Оплатить " + expectedSum.trim() + " BYN", "Текст кнопки не соответствует ожидаемому значению.")
+        );
+    }
+
+    // Проверяем наличие иконок платёжных систем
+    @ParameterizedTest
+    @ValueSource(strings = {"visa", "mastercard", "belkart", "mir", "maestro"})
+    public void testPaymentLogos(String logo) throws InterruptedException {
+        // Вводим данные перед проверкой логотипов
+        mainPage.enterPhoneNumber("297777777");
+        mainPage.enterSum("100");
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        // Ожидание загрузки
+        Thread.sleep(3000); // Ожидание
+        paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
+        assertNotNull(paymentWindow.getPaymentLogoBySystem(logo = logo), "Логотип " + logo + " не найден на странице.");
+        assertTrue(paymentWindow.getPaymentLogoBySystem(logo).isDisplayed(), "Логотип " + logo + " не отображается на странице.");
+    }
+
+    // Проверяем верное отображение номера телефона
+    @Test
+    public void testPhoneNumberInPaymentDescription() throws InterruptedException {
+        String phoneNumber = "297777777"; // Вводим переменную с номером телефона
+        mainPage.enterPhoneNumber(phoneNumber);
+        mainPage.enterSum("100");
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        Thread.sleep(3000);
+        paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
+        assertTrue(paymentWindow.getPaymentDescriptionText().contains(phoneNumber),
+                "Описание оплаты не соответствует введённому номеру телефона.");
+    }
+
+    // Проверяем соответствие текста в пустых полях окна оплаты
+    @Test
+    public void testPaymentFieldsPlaceholders() throws InterruptedException {
+        mainPage.enterPhoneNumber("297777777");
+        mainPage.enterSum("100");
+        mainPage.enterEmail("funt_88@mail.ru");
+        mainPage.clickContinueButton();
+        Thread.sleep(10000); // Ожидание загрузки
+        paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
+        // Проверка соответствия текстов полей
+        assertAll("Проверки соответствия текстов полей",
+                () -> assertEquals("Номер карты", paymentWindow.getCreditCardLabelText(), "Текст метки для номера карты неверный."),
+                () -> assertEquals("Срок действия", paymentWindow.getExpirationDateLabelText(), "Текст метки для срока действия неверный."),
+                () -> assertEquals("CVC", paymentWindow.getCvcLabelText(), "Текст метки для CVC неверный."),
+                () -> assertEquals("Имя держателя (как на карте)", paymentWindow.getCardHolderLabelText(), "Текст метки для имени держателя неверный.")
+        );
     }
 
     // Закрываем браузер и драйвер

@@ -5,6 +5,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,7 +27,6 @@ public class MainPage {
     private WebElement masterCardSecureLogo;
     @FindBy(xpath = "//img[@alt='Белкарт']")
     private WebElement belcardLogo;
-
     // Ссылка "Подробнее о сервисе"
     @FindBy(xpath = "//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")
     private WebElement aboutService;
@@ -46,6 +46,7 @@ public class MainPage {
     // Конструктор для инициализации элементов (ленивая инициализация)
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
+        PageFactory.initElements(driver, this);
     }
 
     // Отклонение куки
