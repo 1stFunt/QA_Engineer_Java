@@ -76,7 +76,7 @@ public class MainTests {
     public void testClickSelectHeader() {
         mainPage.clickSelectHeader(); // Кликаем по кнопке
         // Проверяем, что элемент с текстом "Рассрочка" отображается
-        assertTrue(driver.findElement(By.xpath("//li[@class='select__item active']//p[text()='Рассрочка']")).isDisplayed(),
+        assertTrue(driver.findElement(By.xpath("//p[@class='select__option' and text()='Рассрочка']")).isDisplayed(),
                 "Элемент 'Рассрочка' не отображается после клика.");
     }
 
