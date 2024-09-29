@@ -15,7 +15,7 @@ public class ApiTest {
                 .then().log().body() // Логирование тела ответа
                 .statusCode(200) // Проверка статуса кода
                 .and().body("args.foo1", equalTo("bar1")) // Проверка аргумента foo1
-                .body("args.foo2", equalTo("bar2")); // Проверка аргумента foo2
+                .and().body("args.foo2", equalTo("bar2")); // Проверка аргумента foo2
     }
 
     @Test
@@ -38,13 +38,11 @@ public class ApiTest {
                 .baseUri("https://postman-echo.com") // Установка базового URL
                 .contentType("application/json") // Установка типа контента
                 .body(jsonBody) // Тело запроса в формате JSON
-                .when()
-                .post("/post") // Выполняем POST-запрос
-                .then()
-                .log().body() // Логирование тела ответа
+                .when().post("/post") // Выполняем POST-запрос
+                .then().log().body() // Логирование тела ответа
                 .statusCode(200) // Проверка статуса кода
-                .body("json.foo1", equalTo("bar1")) // Проверка данных в ответе
-                .body("json.foo2", equalTo("bar2")); // Проверка данных в ответе
+                .and().body("json.foo1", equalTo("bar1")) // Проверка данных в ответе
+                .and().body("json.foo2", equalTo("bar2")); // Проверка данных в ответе
     }
 
     @Test
@@ -72,5 +70,18 @@ public class ApiTest {
                 .statusCode(200) // Проверка статуса кода
                 .and().body("data", equalTo("This is expected to be sent back as part of response body."));
     }
+
+    @Test
+    public void testDeleteRequest() {
+        // Выполняем DELETE-запрос
+        String requestBody = "This is expected to be sent back as part of response body."; // Тело запроса
+        given()
+                .baseUri("https://postman-echo.com") // Установка базового URL
+                .body(requestBody) // Устанавливаем тело запроса
+                .contentType("text/plain") // Устанавливаем тип контента на text/plain
+                .when().delete("/delete") // Выполняем DELETE-запрос
+                .then().log().body() // Логирование тела ответа
+                .statusCode(200) // Проверка статуса кода
+                .and().body("data", equalTo("This is expected to be sent back as part of response body."));
+    }
 }
-// В процессе, закончу через часик. Спасибо! =)
