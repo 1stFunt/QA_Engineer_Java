@@ -62,13 +62,11 @@ public class MainPage {
             System.out.println("Окно с куками не появилось.");
         }
     }
-
     // Метод для получения названия блока
     public String getBlockNameText() {
         return wait.until(ExpectedConditions.visibilityOf(blockName))
                 .getText().replace("\n", " ");
     }
-
     // Получаем логотипы платёжных систем
     public WebElement getPaymentLogoById(String logoId) {
         switch (logoId.toLowerCase()) {

@@ -15,7 +15,6 @@ public class DropDownList {
     // Выпадающий список, элементы и соответствующие элементам поля
     @FindBy(xpath = "//button[@class='select__header']")
     private WebElement selectHeader;
-
     // Элементы
     @FindBy(xpath = "//p[@class='select__option' and text()='Услуги связи']")
     private WebElement servicesOption;
@@ -64,7 +63,6 @@ public class DropDownList {
         this.actions = new Actions(driver); // Инициализация Actions
         PageFactory.initElements(driver, this);
     }
-
     // Выпадающий список
     public void clickSelectHeader() {
         wait.until(ExpectedConditions.elementToBeClickable(selectHeader)).click();

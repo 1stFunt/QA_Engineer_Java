@@ -8,9 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class PaymentWindow {
-    private final WebDriverWait wait;
-    private final WebDriver driver;
+    private WebDriverWait wait;
+    private WebDriver driver;
     // Селектор фрейма
     private final By paymentIframeSelector = By.cssSelector("iframe.bepaid-iframe");
 
@@ -56,6 +58,9 @@ public class PaymentWindow {
 
     // Метод для переключения на фрейм окна оплаты
     public void switchToPaymentFrame() {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // Ожидание появления iframe перед переключением
+        wait.until(ExpectedConditions.visibilityOfElementLocated(paymentIframeSelector));
         driver.switchTo().frame(driver.findElement(paymentIframeSelector));
     }
 
@@ -94,21 +99,21 @@ public class PaymentWindow {
 
     // Получение текста из номера карты
     public String getCreditCardLabelText() {
-        return cardNumberLabel.getText();
+        return wait.until(ExpectedConditions.visibilityOf(cardNumberLabel)).getText();
     }
 
     // Получение текста из поля срока действия карты
     public String getExpirationDateLabelText() {
-        return expirationDateLabel.getText();
+        return wait.until(ExpectedConditions.visibilityOf(expirationDateLabel)).getText();
     }
 
     // Получение текста из поля CVC
     public String getCvcLabelText() {
-        return cvcLabel.getText();
+        return wait.until(ExpectedConditions.visibilityOf(cvcLabel)).getText();
     }
 
     // Получение текста из поля имени держателя карты
     public String getCardHolderLabelText() {
-        return cardHolderLabel.getText();
+        return wait.until(ExpectedConditions.visibilityOf(cardHolderLabel)).getText();
     }
 }

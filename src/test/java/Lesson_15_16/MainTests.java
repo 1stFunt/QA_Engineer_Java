@@ -5,34 +5,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MainTests {
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class MainTests extends BaseTest {
     private MainPage mainPage;
     private DropDownList dropDownList;
     private PaymentWindow paymentWindow;
 
     @BeforeEach
+    @Override
     public void setupTest() {
-        // Создаём экземпляр драйвера
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        // Растягиваем окно браузера
-        driver.manage().window().maximize();
-        driver.get("https://www.mts.by/");
-        // Объект созданного Page Object для взаимодействия со страницей
-        mainPage = new MainPage(driver, wait);
-        dropDownList = new DropDownList(driver, wait);
-        paymentWindow = new PaymentWindow(driver, wait);
-        mainPage.clickRejectCookies();
+        super.setupTest(); // Инициализация драйвера и wait
+        dropDownList = new DropDownList(driver, wait); // Инициализация DropDownList
+        mainPage = new MainPage(driver, wait); // Инициализация MainPage
+        paymentWindow = new PaymentWindow(driver, wait); // Инициализация PaymentWindow
+        mainPage.clickRejectCookies(); // Выполняем действия на странице
     }
 
     // 1.1 Проверить название указанного блока
@@ -68,8 +56,6 @@ public class MainTests {
         mainPage.enterSum(expectedSum);
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        Thread.sleep(3000); // Ожидание
-        // Ожидание загрузки и переключение на фрейм
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"),
                 "Текст на странице карты не содержит сумму и валюту.");
@@ -143,8 +129,6 @@ public class MainTests {
         mainPage.enterSum(expectedSum);
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        // Ожидание загрузки
-        Thread.sleep(3000); // Ожидание
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         assertAll("Проверки суммы и текста кнопки",
                 () -> assertTrue(paymentWindow.getPriceText().contains(expectedSum.trim() + " BYN"),
@@ -163,8 +147,6 @@ public class MainTests {
         mainPage.enterSum("100");
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        // Ожидание загрузки
-        Thread.sleep(3000); // Ожидание
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         assertNotNull(paymentWindow.getPaymentLogoBySystem(logo),
                 "Логотип " + logo + " не найден на странице.");
@@ -180,7 +162,6 @@ public class MainTests {
         mainPage.enterSum("100");
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        Thread.sleep(3000);
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         assertTrue(paymentWindow.getPaymentDescriptionText().contains(phoneNumber),
                 "Описание оплаты не соответствует введённому номеру телефона.");
@@ -193,7 +174,6 @@ public class MainTests {
         mainPage.enterSum("100");
         mainPage.enterEmail("funt_88@mail.ru");
         mainPage.clickContinueButton();
-        Thread.sleep(10000); // Ожидание загрузки
         paymentWindow.switchToPaymentFrame(); // Переключение на фрейм окна оплаты
         // Проверка соответствия текстов полей
         assertAll("Проверки соответствия текстов полей",
@@ -207,9 +187,9 @@ public class MainTests {
         );
     }
 
-    // Закрываем браузер и драйвер
     @AfterEach
-    public void teardown() {
-        driver.quit();
+    @Override
+    public void tearDown() {
+        super.tearDown(); // Вызываем tearDown из BaseTest
     }
 }
