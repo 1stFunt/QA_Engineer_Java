@@ -63,6 +63,7 @@ public class DropDownList {
         this.actions = new Actions(driver); // Инициализация Actions
         PageFactory.initElements(driver, this);
     }
+
     // Выпадающий список
     public void clickSelectHeader() {
         wait.until(ExpectedConditions.elementToBeClickable(selectHeader)).click();
