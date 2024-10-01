@@ -169,7 +169,7 @@ public class MainTests extends BaseTest {
     }
 
     // Проверяем соответствие текста в пустых полях окна оплаты
-    @Owner("Сергей Ночевной")
+    @Owner("Сергей")
     @Test
     public void testPaymentFieldsPlaceholders() throws InterruptedException {
         mainPage.enterPhoneNumber("297777777");
