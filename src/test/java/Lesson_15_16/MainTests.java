@@ -1,5 +1,6 @@
 package Lesson_15_16;
 
+import io.qameta.allure.Owner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -168,6 +169,7 @@ public class MainTests extends BaseTest {
     }
 
     // Проверяем соответствие текста в пустых полях окна оплаты
+    @Owner("Сергей Ночевной")
     @Test
     public void testPaymentFieldsPlaceholders() throws InterruptedException {
         mainPage.enterPhoneNumber("297777777");
