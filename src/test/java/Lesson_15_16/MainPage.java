@@ -1,4 +1,4 @@
-package Lesson_15;
+package Lesson_15_16;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -9,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-// Класс MainPage создан для соблюдения структурного подхода и наглядности использования паттерна Page Object.
 public class MainPage {
     private final WebDriverWait wait;
 
@@ -33,7 +32,7 @@ public class MainPage {
     @FindBy(xpath = "//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")
     private WebElement aboutService;
 
-    // Поля и кнопка "Продолжить" + окно оплаты
+    // Поля и кнопка "Продолжить"
     @FindBy(xpath = "//input[@id='connection-phone']")
     private WebElement connectionPhoneInput;
     @FindBy(xpath = "//input[@id='connection-sum']")
@@ -42,8 +41,6 @@ public class MainPage {
     private WebElement connectionEmailInput;
     @FindBy(xpath = "//form[1]//button[contains(text(), 'Продолжить')]")
     private WebElement continueButton;
-    @FindBy(xpath = "//span[contains(text(), '100.00')]")
-    private WebElement cardPage;
 
     // Конструктор для инициализации элементов (ленивая инициализация)
     public MainPage(WebDriver driver, WebDriverWait wait) {
@@ -90,7 +87,7 @@ public class MainPage {
         }
     }
 
-    // Кликаем на cсылку "Подробнее о сервисе"
+    // Кликаем на ссылку "Подробнее о сервисе"
     public void clickAboutServiceLink() {
         wait.until(ExpectedConditions.elementToBeClickable(aboutService)).click();
     }
@@ -120,10 +117,5 @@ public class MainPage {
     public void clickContinueButton() {
         wait.until(ExpectedConditions.elementToBeClickable(continueButton));
         continueButton.click();
-    }
-
-    // Окно оплаты
-    public String getCardPageText() {
-        return wait.until(ExpectedConditions.visibilityOf(cardPage)).getText().replace("\n", " ");
     }
 }
